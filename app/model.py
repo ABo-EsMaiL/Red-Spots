@@ -1,4 +1,5 @@
 import tensorflow as tf
+from tensorflow.keras.models import load_model
 import gdown
 import json
 import os
@@ -17,20 +18,12 @@ def load_model():
     with open('models/model_urls.json', 'r') as f:
         urls = json.load(f)
     
-    model_json_path = 'models/Acc97.json'
-    model_weights_path = 'models/Acc97.weights.h5'
+    modelkeras = 'models/Trying-96.keras'
 
-    if not os.path.exists(model_json_path):
-        download_file(urls['model_json_url'], model_json_path)
+    if not os.path.exists(modelkeras):
+        download_file(urls['modelkeras'], modelkeras)
 
-    if not os.path.exists(model_weights_path):
-        download_file(urls['model_weights_url'], model_weights_path)
-
-    with open(model_json_path, 'r') as json_file:
-        model_json = json_file.read()
-    model = tf.keras.models.model_from_json(model_json)
-
-    model.load_weights(model_weights_path)
+    model = load_model(modelkeras,safe_mode=False)
     
     return model
 

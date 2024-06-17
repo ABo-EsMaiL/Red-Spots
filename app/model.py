@@ -23,7 +23,7 @@ def load_model():
     if not os.path.exists(modelkeras):
         download_file(urls['modelkeras'], modelkeras)
 
-    model = load_model(modelkeras,safe_mode=False)
+    model = load_model(modelkeras)
     
     return model
 

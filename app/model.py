@@ -39,3 +39,4 @@ def predict_image(model, img):
     predicted_class = class_names[np.argmax(predictions[0])]
     confidence = round(100 * (np.max(predictions[0])), 2)
     return predicted_class, confidence
+

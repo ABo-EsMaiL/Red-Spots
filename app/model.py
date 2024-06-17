@@ -6,14 +6,9 @@ import os
 # Ensure TensorFlow uses only CPU
 tf.config.set_visible_devices([], 'GPU')
 
-# Limit TensorFlow memory usage
-physical_devices = tf.config.experimental.list_physical_devices('CPU')
-if physical_devices:
-    try:
-        for device in physical_devices:
-            tf.config.experimental.set_memory_growth(device, True)
-    except RuntimeError as e:
-        print(e)
+# Disable TensorFlow warnings about missing CUDA drivers and TensorRT
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
 class_names = ['Abnormal', 'Erythrodermic', 'Guttate', 'Inverse', 'Nail', 'Normal', 
                'Not Define', 'Palm Soles', 'Plaque', 'Psoriatic Arthritis', 'Pustular', 'Scalp']

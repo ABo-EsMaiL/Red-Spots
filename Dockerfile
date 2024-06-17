@@ -13,8 +13,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
 
-# Define environment variable correctly
-ENV TF_CPP_MIN_LOG_LEVEL=2  # Suppress TensorFlow GPU warnings
+# Define environment variable using correct syntax
+ENV TF_CPP_MIN_LOG_LEVEL=2
 
 # Run app.py when the container launches
 CMD ["flask", "run", "--host=0.0.0.0"]

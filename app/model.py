@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.keras.models import load_model
+from tensorflow.keras.models import load_model as lm
 import gdown
 import json
 import os
@@ -23,7 +23,7 @@ def load_model():
     if not os.path.exists(modelkeras):
         download_file(urls['modelkeras'], modelkeras)
 
-    model = load_model(modelkeras)
+    model = lm(modelkeras,safe_mode=False)
     
     return model
 

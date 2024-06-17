@@ -3,9 +3,6 @@ import gdown
 import json
 import os
 
-# Ensure TensorFlow uses only CPU
-tf.config.set_visible_devices([], 'GPU')
-
 # Disable TensorFlow warnings about missing CUDA drivers and TensorRT
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'

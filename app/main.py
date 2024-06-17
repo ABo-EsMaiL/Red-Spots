@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
-from model import load_model, predict_image
-from utils import preprocess_image
+from app.model import load_model, predict_image
+from app.utils import preprocess_image
 
 app = Flask(__name__)
 model = load_model()

@@ -10,11 +10,11 @@ def download_file(url, output):
     gdown.download(url, output, quiet=False)
 
 def load_model():
-    with open('model/model_urls.json', 'r') as f:
+    with open('app/models/model_urls.json', 'r') as f:
         urls = json.load(f)
     
-    model_json_path = 'model/Acc97.json'
-    model_weights_path = 'model/Acc97.weights.h5'
+    model_json_path = 'models/Acc97.json'
+    model_weights_path = 'models/Acc97.weights.h5'
 
     if not os.path.exists(model_json_path):
         download_file(urls['model_json_url'], model_json_path)

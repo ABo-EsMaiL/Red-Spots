@@ -3,34 +3,41 @@ import gdown
 import json
 import os
 
+# Ensure TensorFlow uses only CPU
+tf.config.set_visible_devices([], 'GPU')
+
+# Limit TensorFlow memory usage
+physical_devices = tf.config.experimental.list_physical_devices('CPU')
+if physical_devices:
+    try:
+        for device in physical_devices:
+            tf.config.experimental.set_memory_growth(device, True)
+    except RuntimeError as e:
+        print(e)
+
 class_names = ['Abnormal', 'Erythrodermic', 'Guttate', 'Inverse', 'Nail', 'Normal', 
                'Not Define', 'Palm Soles', 'Plaque', 'Psoriatic Arthritis', 'Pustular', 'Scalp']
 
 def download_file(url, output):
-    os.makedirs(os.path.dirname(output), exist_ok=True)  # Ensure the directory exists
     gdown.download(url, output, quiet=False)
 
 def load_model():
-    # Load URLs from the JSON file
     with open('models/model_urls.json', 'r') as f:
         urls = json.load(f)
     
     model_json_path = 'models/Acc97.json'
     model_weights_path = 'models/Acc97.weights.h5'
 
-    # Download model architecture and weights if not present
     if not os.path.exists(model_json_path):
         download_file(urls['model_json_url'], model_json_path)
 
     if not os.path.exists(model_weights_path):
         download_file(urls['model_weights_url'], model_weights_path)
 
-    # Load the model architecture
     with open(model_json_path, 'r') as json_file:
         model_json = json_file.read()
     model = tf.keras.models.model_from_json(model_json)
 
-    # Load the model weights
     model.load_weights(model_weights_path)
     
     return model
